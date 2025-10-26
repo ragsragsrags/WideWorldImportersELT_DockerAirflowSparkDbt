@@ -1,0 +1,254 @@
+models:
+  - name: fct_sales
+    description: Sales overview data mart.  One row per line item of the sale .
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "TotalExcludingTax = TotalIncludingTax - TaxAmount"
+    columns:
+      - name: SaleKey
+        description: The unique key of the sale.
+        data_tests:
+          - not_null
+          - unique
+      - name: CityKey
+        description: The unique key of the city of the sale.
+        data_tests:
+          - not_null
+      - name: CustomerKey
+        description: The unique key of the customer of the sale. 
+        data_tests:
+          - not_null
+      - name: BillToCustomerKey
+        description: The unique key of the billed customer of the sale.
+        data_tests:
+          - not_null
+      - name: StockItemKey
+        description: The unique key of the stock item of the sale.
+        data_tests:
+          - not_null
+      - name: InvoiceDateKey
+        description: The date of the sale.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_dates')
+                field: Date
+      - name: DeliveryDateKey
+        description: The date of the delivery of the sale.
+        data_tests:
+          - relationships:
+              arguments:
+                field: Date
+                to: ref('dim_dates')
+      - name: SalesPersonKey
+        description: The unique key of the employee salesperson of the sale.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                field: EmployeeKey
+                to: ref('dim_employees')
+      - name: WWIInvoiceID
+        description: The unique id of the invoice of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: WWIInvoiceLineID
+        description: The unique id of the line item of the sale from the source table.
+        data_tests:
+          - not_null
+          - unique
+      - name: WWICityID
+        description: The unique id of the city of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: WWICustomerID
+        description: The unique id of the customer of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: WWIBillToCustomerID
+        description: The unique id of the bill to customer of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: WWIStockItemID
+        description: The unique id of the stock item of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: WWISalesPersonID
+        description: The unique id of the employee of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: Description
+        description: The description of the line item of the sale from the source table.
+        data_tests:
+          - not_null
+      - name: Package
+        description: The package of the sale.
+        data_tests:
+          - not_null
+      - name: Quantity
+        description: The quantity of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: UnitPrice
+        description: The unit price of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TaxRate
+        description: The tax rate of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TotalExcludingTax
+        description: The total excluding of tax of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TaxAmount
+        description: The tax amount of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: Profit
+        description: The profit of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TotalIncludingTax
+        description: The total including of tax of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TotalDryItems
+        description: The number of dry items of the line item of the sale.
+        data_tests:
+          - not_null
+      - name: TotalChillerItems
+        description: The number of chiller items of the line item of the sale.
+        data_tests:
+          - not_null
+
+unit_tests:
+  - name: test_total_dry_and_chiller_items_correctly
+    description: "Test that counts the total of dry items."
+    model: fct_sales
+    given:
+      - input: ref('__init_fct_sales')
+        rows: 
+          - { 
+              InvoiceID: 1,
+              CustomerID: 1,
+              BillToCustomerID: 1,
+              SalesPersonPersonID: 1,
+              InvoiceDate: '2013-01-01',
+              ConfirmedDeliveryTime: '2013-01-01'
+            }
+          - { 
+              InvoiceID: 2,
+              CustomerID: 1,
+              BillToCustomerID: 1,
+              SalesPersonPersonID: 1,
+              InvoiceDate: '2013-01-01',
+              ConfirmedDeliveryTime: '2013-01-01'
+            }
+      - input: ref('stg_sales_invoice_lines')
+        rows:
+          - { 
+              InvoiceID: 1,
+              StockItemID: 1,
+              PackageTypeID: 1,
+              Quantity: 2
+            }
+          - { 
+              InvoiceID: 2,
+              StockItemID: 2,
+              PackageTypeID: 1,
+              Quantity: 4
+            }
+      - input: ref('dim_stock_items')
+        rows: 
+          - {
+              WWIStockItemID: 1, 
+              IsChillerStock: TRUE
+            }
+          - { 
+              WWIStockItemID: 2,
+              IsChillerStock: FALSE
+            }
+      - input: ref('LatestCutoffDate')
+        rows:
+          - {
+              cutoff_date: '2013-01-01 00:00:00'
+            }
+      - input: ref('stg_warehouse_package_types')
+        rows:
+          - {
+              PackageTypeID: 1
+            }
+      - input: ref('stg_warehouse_package_types_archive')
+        rows:
+          - {
+              PackageTypeID: 1
+            }
+      - input: ref('dim_customers')
+        rows:
+          - {
+              WWICustomerID: 1,
+              WWIDeliveryCityID: 1
+            }
+      - input: ref('dim_cities')
+        rows:
+          - {
+              WWICityID: 1
+            }
+      - input: ref('dim_employees')
+        rows:
+          - {
+              WWIEmployeeID: 1
+            }
+      - input: ref('dim_dates')
+        rows: 
+          - {
+              Date: '2013-01-01'
+            }
+      
+    expect:
+      rows:
+        - { 
+            WWIInvoiceID: 1,
+            TotalDryItems: 0,
+            TotalChillerItems: 2
+          }
+        - { 
+            WWIInvoiceID: 2,
+            TotalDryItems: 4,
+            TotalChillerItems: 0
+          }
+
+semantic_models:
+  - name: sales
+    defaults:
+      agg_time_dimension:  InvoiceDateKey
+    description: |
+      Sales fact table. This table is tracking all sales.  It is one row per sales line item.
+    model: ref('fct_sales')
+    entities:
+      - name: SaleKey
+        type: primary
+      - name: City
+        type: foreign
+        expr: CityKey
+      - name: Customer
+        type: foreign
+        expr: CustomerKey
+      - name: BillToCustomer
+        type: foreign
+        expr: BillToCustomerKey
+      - name: StockItem
+        type: foreign
+        expr: StockItemKey
+      - name: InvoiceDate
+        type: foreign
+        expr: InvoiceDateKey
+      - name: DeliveryDate
+        type: foreign
+        expr: DeliveryDateKey
+      - name: SalesPerson
+        type: foreign
+        expr: SalesPersonKey

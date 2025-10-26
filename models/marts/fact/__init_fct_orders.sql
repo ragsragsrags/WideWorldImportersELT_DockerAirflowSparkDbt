@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_fct_orders', 
+        '__init_fct_orders', 
+        'stg_sales_orders', 
+        'OrderID'
+    ) 
+}}

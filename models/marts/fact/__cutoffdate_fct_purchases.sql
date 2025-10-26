@@ -1,0 +1,1 @@
+{{ get_table_cutoff_date('fct_purchases') }}

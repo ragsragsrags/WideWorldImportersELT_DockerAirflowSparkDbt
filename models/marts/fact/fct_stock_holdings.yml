@@ -1,0 +1,57 @@
+models:
+  - name: fct_stock_holdings
+    description: Stock holdings overview data mart.  One row per stock item.
+    columns:
+      - name: StockHoldingKey
+        description: The unique key of the stock holding.
+        data_tests:
+          - not_null
+          - unique
+      - name: StockItemKey
+        description: The unique key of the stock item of the stock holding.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                field: StockItemKey
+                to: ref('dim_stock_items')
+      - name: WWIStockItemID
+        description: The unique id of the stock item of the stcok holding from the source table.
+        data_tests:
+          - not_null
+      - name: QuantityOnHand
+        description: The quantity on hand of the stock holding.
+        data_tests:
+          - not_null
+      - name: BinLocation
+        description: The location of the bin of the stock holding.
+        data_tests:
+          - not_null
+      - name: LastStocktakeQuantity
+        description: The quantity of the last stock take of the stock holding.
+        data_tests:
+          - not_null
+      - name: LastCostPrice
+        description: The last cost price of the stock item of the stock holding.
+        data_tests:
+          - not_null
+      - name: ReorderLevel
+        description: The reorder level of the stock holding.
+        data_tests:
+          - not_null
+      - name: TargetStockLevel
+        description: The target stock level of the stock holding.
+        data_tests:
+          - not_null
+
+semantic_models:
+  - name: stock_holdings
+    description: |
+      Stock holdings fact table. This table is tracking all stock item transactions.  It is one row per transaction.
+    model: ref('fct_stock_holdings')
+    entities:
+      - name: stock_holding_key
+        type: primary
+      - name: stock_item
+        type: foreign
+        expr: stock_item_key

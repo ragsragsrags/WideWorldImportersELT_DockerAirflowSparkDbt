@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_fct_sales', 
+        '__init_fct_sales', 
+        'stg_sales_invoices', 
+        'InvoiceID'
+    ) 
+}}

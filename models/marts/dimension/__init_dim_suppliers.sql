@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_dim_suppliers', 
+        '__init_dim_suppliers', 
+        'stg_purchasing_suppliers', 
+        'SupplierID'
+    ) 
+}}

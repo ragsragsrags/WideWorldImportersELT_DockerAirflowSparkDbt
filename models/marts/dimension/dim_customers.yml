@@ -1,0 +1,38 @@
+models:
+  - name: dim_customers
+    description: Customer overview data mart.  One row per customer.
+    columns:
+      - name: CustomerKey
+        description: The unique key of the customer information.
+        data_tests:
+          - not_null
+          - unique
+      - name: WWICustomerID
+        description: The customer id from the source table.
+        data_tests:
+          - not_null
+          - unique
+      - name: WWIDeliveryCityID
+        description: The delivery city id from the source table.
+        data_tests:
+          - not_null
+      - name: Customer
+        description: The name of the customer.
+        data_tests:
+          - not_null
+      - name: BillToCustomer
+        description: The name of the billed to customer.
+        data_tests:
+          - not_null
+      - name: Category
+        description: The category of the customer.
+        data_tests:
+          - not_null
+      - name: BuyingGroup
+        description: The buying group of the customer. 
+      - name: PrimaryContact
+        description: The name of the primary contact person of the customer.
+      - name: PostalCode
+        description: The delivery postal code of the customer.
+        data_tests:
+          - not_null
