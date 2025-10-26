@@ -87,7 +87,9 @@ Some instructions:
        - set cutoff date: notebooks/set_cutoff_date_bq.json and notebooks/set_cutoff_date_bq.ipynb
 12. Add your google cloud service account token here in: resources/credentials
       https://developers.google.com/workspace/guides/create-credentials
-13. I'm using the dbtCloudOperator, so you needed to have the files saved in the repository (like github, gitlab etc..) and it needed to be built successfully also in the cloud so you could create a job that will be called by the airflow.  Another note, you need files pushed to the main branch because the build will get its files from the main branch.  In my case, I have it setup in the cloud in github and also have it in the local files through Github desktop so I could develop and test locally.  If you want to test dbt locally:
+13. Create the bigquery datasets in BigQuery: WideWorldImporters and WideWorldImportersDW
+14. Create history tables in BigQuery: scripts: scripts/create_history_table.sql
+15. I'm using the dbtCloudOperator, so you needed to have the files saved in the repository (like github, gitlab etc..) and it needed to be built successfully also in the cloud so you could create a job that will be called by the airflow.  Another note, you need files pushed to the main branch because the build will get its files from the main branch.  In my case, I have it setup in the cloud in github and also have it in the local files through Github desktop so I could develop and test locally.  If you want to test dbt locally:
     + Install dbt for Visual Studio: https://docs.getdbt.com/docs/install-dbt-extension
     + Get the dbt credentials and save it to C:\Users\user_name\.dbt\
       <img width="1302" height="569" alt="image" src="https://github.com/user-attachments/assets/8b584e41-2b9a-4b8c-86cf-796f2482ae75" /
