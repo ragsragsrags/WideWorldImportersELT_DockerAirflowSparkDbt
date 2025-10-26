@@ -102,12 +102,13 @@ These are the url:
 
 You should see these pages:
 - Airflow (login: airflow/airflow) - this could take a while to load maybe 2-3 minutes in first build
-<img width="872" height="443" alt="image" src="https://github.com/user-attachments/assets/51b070f8-14cf-4556-8878-a1cd02779ea6" />
+<img width="916" height="532" alt="image" src="https://github.com/user-attachments/assets/9b6784d0-a996-4ad4-9881-0b3c72cb87ca" />
 
 - Spark
 <img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/a6a1e94c-cc35-410a-a747-53956befdf5a" />
 
 I've used retries because I've only around 8gb avaialable memory and sometimes it stops.  If you have more memory then 1 retry should be okay.
+
 
 
 
