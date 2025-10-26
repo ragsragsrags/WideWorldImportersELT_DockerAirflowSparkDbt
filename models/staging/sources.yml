@@ -1,0 +1,98 @@
+sources:
+  - name: WideWorldImporters
+    database: dbt-tutorial-462014
+    schema: WideWorldImporters
+    description: Tables in application schema 
+    tables:
+      - name: Application_Cities
+      - name: Application_Cities_Archive
+      - name: Application_Countries
+      - name: Application_Countries_Archive
+      - name: Application_DeliveryMethods
+      - name: Application_DeliveryMethods_Archive
+      - name: Application_PaymentMethods
+      - name: Application_PaymentMethods_Archive
+      - name: Application_People
+      - name: Application_People_Archive
+      - name: Application_StateProvinces
+      - name: Application_StateProvinces_Archive
+      - name: Application_TransactionTypes
+      - name: Application_TransactionTypes_Archive
+      - name: Purchasing_SupplierCategories
+      - name: Purchasing_SupplierCategories_Archive
+      - name: Purchasing_Suppliers
+      - name: Purchasing_Suppliers_Archive
+      - name: Purchasing_PurchaseOrders
+      - name: Purchasing_PurchaseOrderLines
+      - name: Purchasing_SupplierTransactions
+      - name: Sales_CustomerCategories
+      - name: Sales_CustomerCategories_Archive
+      - name: Sales_BuyingGroups
+      - name: Sales_BuyingGroups_Archive
+      - name: Sales_Customers
+      - name: Sales_Customers_Archive
+      - name: Sales_Orders
+      - name: Sales_OrderLines
+      - name: Sales_Invoices
+      - name: Sales_InvoiceLines
+      - name: Sales_CustomerTransactions
+      - name: Warehouse_Colors
+      - name: Warehouse_Colors_Archive
+      - name: Warehouse_PackageTypes
+      - name: Warehouse_PackageTypes_Archive
+      - name: Warehouse_StockItems
+      - name: Warehouse_StockItems_Archive
+      - name: Warehouse_StockItemTransactions
+      - name: Warehouse_StockItemHoldings
+
+  - name: WideWorldImportersDW
+    database: dbt-tutorial-462014
+    schema: WideWorldImportersDW
+    description: Tables in history schema
+    tables:
+      - name: WarehouseHistory
+      - name: LatestCutoffDate
+      - name: __init_dim_cities
+      - name: __init_dim_customers
+      - name: __init_dim_dates
+      - name: __init_dim_employees
+      - name: __init_dim_payment_methods
+      - name: __init_dim_stock_items
+      - name: __init_dim_suppliers
+      - name: __init_dim_transaction_types
+      - name: __init_fct_movements
+      - name: __init_fct_orders
+      - name: __init_fct_purchases
+      - name: __init_fct_sales
+      - name: __init_fct_stock_holdings
+      - name: __init_fct_transactions
+      - name: __cutoffdate_dim_cities
+      - name: __cutoffdate_dim_customers
+      - name: __cutoffdate_dim_dates
+      - name: __cutoffdate_dim_employees
+      - name: __cutoffdate_dim_payment_methods
+      - name: __cutoffdate_dim_stock_items
+      - name: __cutoffdate_dim_suppliers
+      - name: __cutoffdate_dim_transaction_types
+      - name: __cutoffdate_fct_movements
+      - name: __cutoffdate_fct_orders
+      - name: __cutoffdate_fct_purchases
+      - name: __cutoffdate_fct_sales
+      - name: __cutoffdate_fct_stock_holdingss
+      - name: __cutoffdate_fct_transactions
+      - name: stg_application_stateprovinces 
+      - name: stg_application_countries
+      - name: stg_application_people
+      - name: stg_warehouse_package_types
+      - name: stg_warehouse_colors
+      - name: stg_sales_buying_groups
+      - name: stg_sales_customer_categories
+      - name: stg_purchasing_supplier_categories
+      - name: stg_application_stateprovinces_archive
+      - name: stg_application_countries_archive
+      - name: stg_sales_buying_groups_archive
+      - name: stg_sales_customer_categories_archive
+      - name: stg_purchasing_supplier_categories_archive
+      - name: stg_application_people_archive
+      - name: stg_warehouse_package_types_archive
+      - name: stg_warehouse_colors_archive
