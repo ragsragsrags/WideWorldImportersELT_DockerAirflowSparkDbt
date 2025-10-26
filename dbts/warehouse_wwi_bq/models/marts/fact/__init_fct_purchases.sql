@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_fct_purchases', 
+        '__init_fct_purchases', 
+        'stg_purchasing_purchase_orders', 
+        'PurchaseOrderID'
+    ) 
+}}

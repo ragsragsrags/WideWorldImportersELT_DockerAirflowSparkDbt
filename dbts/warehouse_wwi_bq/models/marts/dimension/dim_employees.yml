@@ -1,0 +1,28 @@
+models:
+  - name: dim_employees
+    description: Employee overview data mart.  One row per employee.
+    columns:
+      - name: EmployeeKey
+        description: The unique employee key.
+        data_tests:
+          - not_null
+          - unique
+      - name: WWIEmployeeID
+        description: The employee id from source.
+        data_tests:
+          - not_null
+          - unique
+      - name: Employee
+        description: The name of the employee.
+        data_tests:
+          - not_null
+      - name: PreferredName
+        description: The preferred name of the employee.
+        data_tests:
+          - not_null
+      - name: IsSalesPerson
+        description: Verifies if employe is a sales person.
+        data_tests:
+          - not_null
+      - name: Photo
+        description: The photo of the employee.

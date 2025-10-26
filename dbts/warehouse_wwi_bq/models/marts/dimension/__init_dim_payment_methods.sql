@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_dim_payment_methods', 
+        '__init_dim_payment_methods', 
+        'stg_application_payment_methods', 
+        'PaymentMethodID'
+    ) 
+}}

@@ -1,0 +1,124 @@
+models:
+  - name: fct_transactions
+    description: Transactions overview data mart.  One row per transaction.
+    columns:
+      - name: TransactionKey
+        description: The unique key of the transaction.
+        data_tests:
+          - not_null
+          - unique
+      - name: DateKey
+        description: The date of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                field: Date
+                to: ref('dim_dates')
+      - name: CustomerKey
+        description: The unique key of the customer of the transaction.
+        data_tests:
+          - relationships:
+              arguments:
+                field: CustomerKey
+                to: ref('dim_customers')
+      - name: BillToCustomerKey
+        description: The unique key of the billed customer of the transaction.
+        data_tests:
+          - relationships:
+              arguments:
+                field: CustomerKey
+                to: ref('dim_customers')
+      - name: SupplierKey
+        description: The unique key of the supplier of the transaction.
+        data_tests:
+          - relationships:
+              arguments:
+                field: SupplierKey
+                to: ref('dim_suppliers')
+      - name: TransactionTypeKey
+        description: The unique key of the transaction type of the transaction.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_transaction_types')
+                field: TransactionTypeKey
+      - name: PaymentMethodKey
+        description: The unique key of the payment method of the transaction.
+        data_tests:
+          - relationships:
+              arguments:
+                field: PaymentMethodKey
+                to: ref('dim_payment_methods')
+      - name: WWICustomerTransactionID
+        description: The unique id of the customer of the transaction.
+      - name: WWISupplierTransactionID
+        description: The unique id of the supplier of the transaction.
+      - name: WWICustomerID
+        description: The unique id of the customer of the transaction.
+      - name: WWIBillToCustomerID
+        description: The unique id of the bill to customer of the transaction.
+      - name: WWISupplierID
+        description: The unique id of the supplier of the transaction.
+      - name: WWITransactionTypeID
+        description: The unique id of the type of the transaction.
+        data_tests:
+          - not_null
+      - name: WWIPaymentMethodID
+        description: The unique id of the type of the transaction.
+      - name: WWIInvoiceID
+        description: The unique id of the invoice of the transaction.
+      - name: WWIPurchaseOrderID
+        description: The unique id of the purchase order of the transaction.
+      - name: SupplierInvoiceNumber
+        description: The supplier invoice number of the transaction.
+      - name: TotalExcludingTax
+        description: The total excluding of tax of the transaction.
+        data_tests:
+          - not_null
+      - name: TaxAmount
+        description: The tax amount of the transaction.
+        data_tests:
+          - not_null
+      - name: TotalIncludingTax
+        description: The total including of tax of the transaciton.
+        data_tests:
+          - not_null
+      - name: OutstandingBalance
+        description: The outstanding balance of the transaction.
+        data_tests:
+          - not_null
+      - name: IsFinalized
+        description: The boolean tag if transaction is finalized.
+        data_tests:
+          - not_null
+          
+semantic_models:
+  - name: transactions
+    defaults:
+      agg_time_dimension:  DateKey
+    description: |
+      Transactions fact table. This table is tracking all customer and supplier transactions.  It is one row per transaction.
+    model: ref('fct_transactions')
+    entities:
+      - name: TransactionKey
+        type: primary
+      - name: Date
+        type: foreign
+        expr: DateKey
+      - name: Customer
+        type: foreign
+        expr: Customerkey
+      - name: BillToCustomer
+        type: foreign
+        expr: BillToCustomerKey
+      - name: Supplier
+        type: foreign
+        expr: SupplierKey
+      - name: TransactionType
+        type: foreign
+        expr: TransactionTypeKey
+      - name: PaymentMethod
+        type: foreign
+        expr: PaymentMethodKey

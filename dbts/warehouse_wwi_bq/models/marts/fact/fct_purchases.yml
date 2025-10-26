@@ -1,0 +1,168 @@
+models:
+  - name: fct_purchases
+    description: Purchases overview data mart.  One row purchase order line.
+    columns:
+      - name: PurchaseKey
+        description: The unique key of the purchase.
+        data_tests:
+          - not_null
+          - unique
+      - name: DateKey
+        description: The date of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_dates')
+                field: Date
+      - name: SupplierKey
+        description: The unique key of the supplier of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_suppliers')
+                field: SupplierKey
+      - name: StockItemKey
+        description: The unique key of the stock item of the purchase.
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                field: StockItemKey
+                to: ref('dim_stock_items')
+      - name: WWIPurchaseOrderID
+        description: The unique id of the purchase order from the source table.
+        data_tests:
+          - not_null
+      - name: WWIPurchaseOrderLineID
+        description: The unique id of the purchase order line from the source table.
+        data_tests:
+          - not_null
+      - name: WWISupplieriD
+        description: The unique id of the supplier of the source table.
+        data_tests:
+          - not_null
+      - name: WWIStockItemID
+        description: The unique id of the stock item of the the source table.
+        data_tests:
+          - not_null
+      - name: OrderedOuters
+        description: The number of ordered outers of the purchase.
+        data_tests:
+          - not_null 
+      - name: OrderedQuantity
+        description: The quantity of orders of the purchase.
+        data_tests:
+          - not_null
+      - name: ReceivedOuters
+        description: The number of received outers of the purchase.
+        data_tests:
+          - not_null
+      - name: Package
+        description: The package type of the purchase.
+        data_tests:
+          - not_null
+      - name: IsOrderFinalized
+        description: The boolean tag if order is finalized.
+        data_tests:
+          - not_null
+
+unit_tests:
+  - name: test_ordered_quantity_correctly
+    description: "Test that counts the quantity of orders."
+    model: fct_purchases
+    given:
+      - input: ref('__init_fct_purchases')
+        rows:
+          - { 
+              PurchaseOrderID: 2,
+              SupplierID: 4,
+              OrderDate: '2013-01-01' 
+            }
+      - input: ref('stg_purchasing_purchase_order_lines')
+        rows:
+          - { 
+              PurchaseOrderID: 2,
+              PurchaseOrderLineID: 5,
+              StockItemID: 77,
+              PackageTypeID: 6,
+              OrderedOuters: 1
+            }
+          - { 
+              PurchaseOrderID: 2,
+              PurchaseOrderLineID: 16,
+              StockItemID: 95,
+              PackageTypeID: 6,
+              OrderedOuters: 2
+            }
+      - input: ref('dim_stock_items')
+        rows: 
+          - {
+              StockItemKey: 95, 
+              WWIStockItemID: 95,
+              QuantityPerOuter: 12
+            }
+          - { 
+              StockItemKey: 77,
+              WWIStockItemID: 77,
+              QuantityPerOuter: 12
+            }
+      - input: ref('LatestCutoffDate')
+        rows:
+          - {
+              cutoff_date: '2013-01-01 00:00:00'
+            }
+      - input: ref('stg_warehouse_package_types')
+        rows:
+          - {
+              PackageTypeID: 6
+            }
+      - input: ref('stg_warehouse_package_types_archive')
+        rows:
+          - {
+              PackageTypeID: 7
+            }
+      - input: ref('dim_suppliers')
+        rows:
+          - {
+              SupplierKey: 4,
+              WWISupplierID: 4
+            }
+      - input: ref('dim_dates')
+        rows:
+          - {
+              date: '2013-01-01'
+            }
+    expect:
+      rows:
+        - { 
+            WWIPurchaseOrderID: 2,
+            WWIPurchaseOrderLineID: 5,
+            OrderedQuantity: 12
+          }
+        - { 
+            WWIPurchaseOrderID: 2,
+            WWIPurchaseOrderLineID: 16,
+            OrderedQuantity: 24
+          }
+
+semantic_models:
+  - name: purchases
+    defaults:
+      agg_time_dimension:  DateKey
+    description: |
+      Purchases fact table. This table is tracking all purchase orders.  It is one row per purchase order line item.
+    model: ref('fct_purchases')
+    entities:
+      - name: PurchaseKey
+        type: primary
+      - name: Date
+        type: foreign
+        expr: DateKey
+      - name: Supplier
+        type: foreign
+        expr: SupplierKey
+      - name: StockItem
+        type: foreign
+        expr: StockItemKey

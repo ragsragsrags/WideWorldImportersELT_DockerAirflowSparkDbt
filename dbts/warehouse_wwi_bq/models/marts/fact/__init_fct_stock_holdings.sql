@@ -1,0 +1,9 @@
+{{ 
+    get_table_init
+    (
+        '__changed_fct_stock_holdings', 
+        '__init_fct_stock_holdings', 
+        'stg_warehouse_stock_item_holdings', 
+        'StockItemID'
+    ) 
+}}
