@@ -1,0 +1,25 @@
+CREATE TABLE @DestinationTable
+(
+    PersonID INTEGER,
+    FullName STRING,
+    PreferredName STRING,
+    SearchName STRING,
+    IsPermittedToLogon BOOLEAN,
+    LogonName STRING,
+    IsExternalLogonProvider BOOLEAN,
+    HashedPassword BYTES,
+    IsSystemUser BOOLEAN,
+    IsEmployee BOOLEAN,
+    IsSalesperson BOOLEAN,
+    UserPreferences STRING,
+    PhoneNumber STRING,
+    FaxNumber STRING,
+    EmailAddress STRING,
+    Photo BYTES,
+    CustomFields STRING,
+    OtherLanguages STRING,
+    LastEditedBy INTEGER,
+    ValidFrom DATETIME,
+    ValidTo DATETIME,
+    LoadDate DATETIME
+)

@@ -1,0 +1,497 @@
+{
+    "cutoff_date": "2013-01-01 00:00:00",
+    "source": {
+        "database": "WideWorldImporters",
+        "url": "jdbc:sqlserver://localhost\\MSSQLSERVER05;database=WideWorldImporters;user=sa;password=P@$$w0rd;encrypt=false"
+    },
+    "destination": {
+        "database": "WideWorldImportersDW",
+        "url": "jdbc:sqlserver://localhost\\MSSQLSERVER05;database=WideWorldImportersDW;user=sa;password=P@$$w0rd;encrypt=false"
+    },
+    "tables": [
+        {
+            "source": {
+                "schema": "Application",
+                "table": "Cities",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_Cities"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "Cities_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_Cities_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "Countries",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_Countries"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "Countries_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_Countries_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "DeliveryMethods",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_DeliveryMethods"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "DeliveryMethods_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_DeliveryMethods_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "PaymentMethods",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_PaymentMethods"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "PaymentMethods_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_PaymentMethods_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "People",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_People"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "People_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_People_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "StateProvinces",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_StateProvinces"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "StateProvinces_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_StateProvinces_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "TransactionTypes",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_TransactionTypes"
+            }
+        },
+        {
+            "source": {
+                "schema": "Application",
+                "table": "TransactionTypes_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Application_TransactionTypes_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "PurchaseOrderLines",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_PurchaseOrderLines"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "PurchaseOrders",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_PurchaseOrders"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "SupplierCategories",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_SupplierCategories"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "SupplierCategories_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_SupplierCategories_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "Suppliers",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_Suppliers"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "Suppliers_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_Suppliers_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Purchasing",
+                "table": "SupplierTransactions",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Purchasing_SupplierTransactions"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "BuyingGroups",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_BuyingGroups"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "BuyingGroups_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_BuyingGroups_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "CustomerCategories",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_CustomerCategories"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "CustomerCategories_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_CustomerCategories_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "Customers",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_Customers"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "Customers_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_Customers_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "CustomerTransactions",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_CustomerTransactions"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "InvoiceLines",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_InvoiceLines"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "Invoices",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_Invoices"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "OrderLines",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_OrderLines"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "Orders",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_Orders"
+            }
+        },
+        {
+            "source": {
+                "schema": "Sales",
+                "table": "SpecialDeals",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Sales_SpecialDeals"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "Colors",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_Colors"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "Colors_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_Colors_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "PackageTypes",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_PackageTypes"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "PackageTypes_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_PackageTypes_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockGroups",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockGroups"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockGroups_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockGroups_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockItemHoldings",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockItemHoldings"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockItems",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockItems"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockItems_Archive",
+                "type": "ValidDateRange"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockItems_Archive"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockItemStockGroups",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockItemStockGroups"
+            }
+        },
+        {
+            "source": {
+                "schema": "Warehouse",
+                "table": "StockItemTransactions",
+                "type": "LastEditedDate"
+            },
+            "destination": {
+                "schema": "dbo",
+                "table": "Warehouse_StockItemTransactions"
+            }
+        }
+    ]
+}
