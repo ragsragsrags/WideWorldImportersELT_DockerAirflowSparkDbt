@@ -1,6 +1,10 @@
-# WideWorldImporters Extract-Load-Transform (ELT) in Dockerized Airflow and Spark
+# WideWorldImporters Extract-Load-Transform (ELT) in Dockerized Airflow, Spark and dbt
 
-This is an (E)xtract - (L)oad - (T)ransform of Microsoft's sample database WideWorldImporters using Apache Airflow as workflow orchestrator and Apache Spark as data loader and transformer.  Apache Airflow and Apache Spark is containerized using Docker.  Database being used is local MSSQL.  But you could also use cloud like Azure, Bigquery and others which is supported by Spark.  I have tried with BigQuery and it works.  For practicing, better use local since you'll be updating and/or changing a lot.  
+This is an (E)xtract - (L)oad - (T)ransform of Microsoft's sample database WideWorldImporters.  This will be using Microsoft's sample WidelWorldImporters database as baseline. There are 2 workflows:
+   + process_wwi_elt - This will extract and load data to another mssql database using Airflow and Spark.  Transformation is done mostly in the stored procedures called by Spark.
+   + <img width="1138" height="192" alt="image" src="https://github.com/user-attachments/assets/34399c95-7c47-4113-934c-6751100fe39c" />
+   + process_wwi_bg_elt - This will extract and load data to a BigQuery cloud using Airfflow and Sparnk.  Transformation is done by dbt.
+   + <img width="1139" height="267" alt="image" src="https://github.com/user-attachments/assets/647cf0f2-8c79-48b2-bb0c-260b7bf7a825" />
 
 Prerequisites:
    + Python (I'm using 3.10)
@@ -14,12 +18,22 @@ Prerequisites:
      - Docker
      - Jupyter
      - Python
-   + At least 8gb memory available and 20gb available disk space 
+   + At least 8gb memory available and 20gb available disk space
+   + Dbt cloud account (could use the free trial)
+   + BigQuery Account (could use the free trial)
 
 These are the relevant documents:
    + Docker - https://docs.docker.com/get-started/
    + Apache Airflow in Docker - https://airflow.apache.org/docs/apache-airflow/stable/howto/docker-compose/index.html
    + Apache Spark - https://spark.apache.org/docs/latest/sql-getting-started.html
+   + dbt
+      - dbt operator: https://airflow.apache.org/docs/apache-airflow-providers-dbt-cloud/3.2.3/index.html
+      - bigquery setup: https://docs.getdbt.com/docs/core/connect-data-platform/bigquery-setup
+      - dbt for visual studio: https://docs.getdbt.com/docs/install-dbt-extension (if you want to try visual studio)
+      - airflow and dbt: https://docs.getdbt.com/guides/airflow-and-dbt-cloud?step=9
+         + steps 7 - 9
+   + Papermill
+      - https://airflow.apache.org/docs/apache-airflow-providers-papermill/stable/operators.html
 
 This is the project tree:
    - main 
@@ -80,6 +94,7 @@ Some instructions:
 9. When testing in notebook you can update files here:
     - load: notebooks/load_wwi.json
     - warehouse: notebook/warehouse_wwi.json
+10. I'm using the dbtCloudOperator, so you needed to have the files saved in the repository (like github, gitlab etc..) and it needed to be built successfully also in the cloud so you could create a job on it that will be called by the airflow.  In my case, I have it setup in the cloud in github and also have it in the local files through Github desktop so I could develop and test locally.  see here: airflow and dbt: https://docs.getdbt.com/guides/airflow-and-dbt-cloud?step=9 (steps 7 - 9)  
 
 These are the url:
 - Airflow Url (this could take time load on first load): http://localhost:8080/ 
@@ -93,3 +108,4 @@ You should see these pages:
 <img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/a6a1e94c-cc35-410a-a747-53956befdf5a" />
 
 I've used retries because I've only around 8gb avaialable memory and sometimes it stops.  If you have more memory then 1 retry should be okay.
+
