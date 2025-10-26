@@ -34,7 +34,9 @@ These are the relevant documents:
          + steps 7 - 9
    + Papermill
       - https://airflow.apache.org/docs/apache-airflow-providers-papermill/stable/operators.html
-
+   + BigQuery
+      - https://github.com/GoogleCloudDataproc/spark-bigquery-connector
+   
 For process_wwi_elt workflow, These are the dags:
    + load_wwi_w1 - loads batch 1 tables
    + load_wwi_w2 - loads batch 2 tables
@@ -67,26 +69,45 @@ Some instructions:
       <img width="490" height="220" alt="image" src="https://github.com/user-attachments/assets/bbaa3ce2-fe15-45bd-a270-1fb0403105b7" />
 
     - Succeeding build you can use just (unless you updated Dockerfile or requirements.txt): docker compose up -d
-7. Create the warehouse database found here: scripts/WideWorldImporters.sql
-8. You can update the cutoff_date in json configuration here: dags/process_wwi_elt.json
-    - should be at least "2013-01-01 00:00:00" and increase it every run.
-    - if you want to use the current date then make it blank ""
-9. When testing in notebook you can update files here:
-    - load: notebooks/load_wwi.json
-    - warehouse: notebook/warehouse_wwi.json
-10. I'm using the dbtCloudOperator, so you needed to have the files saved in the repository (like github, gitlab etc..) and it needed to be built successfully also in the cloud so you could create a job on it that will be called by the airflow.  In my case, I have it setup in the cloud in github and also have it in the local files through Github desktop so I could develop and test locally.  see here: airflow and dbt: https://docs.getdbt.com/guides/airflow-and-dbt-cloud?step=9 (steps 7 - 9)  
-
+7. Create the warehouse database found here in mssql: scripts/WideWorldImporters.sql
+8. You can update the cutoff_date in json configuration here:
+    + process_wwi_elt: dags/process_wwi_elt.json
+    + process_wwi_bq_elt: dags/process_wwi_bq_elt.json
+   Should be at least "2013-01-01 00:00:00" and increase it every run.
+   If you want to use the current date then make it blank ""
+10. When testing in notebook you can update files here:
+    + process_wwi_elt:
+       - load: notebooks/load_wwi.json and notebooks/load_wwi.ipynb
+       - test load: notebooks/load_wwi_test.json and notebooks/load_wwi_test.ipynb
+       - warehouse: notebooks/warehouse_wwi.json and notebooks/warehouse_wwi.ipynb
+       - test warehouse: notebooks/warehouse_wwi_test.json and notebooks/warehouse_wwi_test.ipynb 
+    + process_wwi_bq_elt:
+       - load: notebooks/load_wwi_bq.json and notebooks/load_wwi_bq.ipynb
+       - test load: notebooks/load_wwi_bq_test.json and notebooks/load_wwi_bq_test.ipynb
+       - set cutoff date: notebooks/set_cutoff_date_bq.json and notebooks/set_cutoff_date_bq.ipynb
+12. Add your google cloud service account token here in: resources/credentials
+      https://developers.google.com/workspace/guides/create-credentials
+13. I'm using the dbtCloudOperator, so you needed to have the files saved in the repository (like github, gitlab etc..) and it needed to be built successfully also in the cloud so you could create a job that will be called by the airflow.  Another note, you need files pushed to the main branch because the build will get its files from the main branch.  In my case, I have it setup in the cloud in github and also have it in the local files through Github desktop so I could develop and test locally.  If you want to test dbt locally:
+    + Install dbt for Visual Studio: https://docs.getdbt.com/docs/install-dbt-extension
+    + Get the dbt credentials and save it to C:\Users\user_name\.dbt\
+      <img width="1302" height="569" alt="image" src="https://github.com/user-attachments/assets/8b584e41-2b9a-4b8c-86cf-796f2482ae75" /
+    + See steps 7 to 9: airflow and dbt: https://docs.getdbt.com/guides/airflow-and-dbt-cloud
+    + Update this configurations in using docker compose from steps above:
+      <img width="461" height="325" alt="image" src="https://github.com/user-attachments/assets/db09d9b7-3d83-4838-ac32-43c6e42d2246" />
+      You can see it from the url of the job you created
+      
 These are the url:
 - Airflow Url (this could take time load on first load): http://localhost:8080/ 
 - Spark Url: http://localhost:8088/
 
 You should see these pages:
-- Airflow (login: airflow/airflow)
+- Airflow (login: airflow/airflow) - this could take a while to load maybe 2-3 minutes in first build
 <img width="872" height="443" alt="image" src="https://github.com/user-attachments/assets/51b070f8-14cf-4556-8878-a1cd02779ea6" />
 
 - Spark
 <img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/a6a1e94c-cc35-410a-a747-53956befdf5a" />
 
 I've used retries because I've only around 8gb avaialable memory and sometimes it stops.  If you have more memory then 1 retry should be okay.
+
 
 
