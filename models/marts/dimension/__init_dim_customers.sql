@@ -1,9 +1,0 @@
-{{ 
-    get_table_init
-    (
-        '__changed_dim_customers', 
-        '__init_dim_customers', 
-        'stg_sales_customers', 
-        'CustomerID'
-    ) 
-}}

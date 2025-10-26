@@ -1,9 +1,0 @@
-{{ 
-    get_table_init
-    (
-        '__changed_dim_cities', 
-        '__init_dim_cities', 
-        'stg_application_cities', 
-        'CityID'
-    ) 
-}}

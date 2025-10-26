@@ -1,9 +1,0 @@
-{{ 
-    get_table_init
-    (
-        '__changed_dim_transaction_types', 
-        '__init_dim_transaction_types', 
-        'stg_application_transaction_types', 
-        'TransactionTypeID'
-    ) 
-}}

@@ -1,9 +1,0 @@
-{{ 
-    get_table_init
-    (
-        '__changed_dim_employees', 
-        '__init_dim_employees', 
-        'stg_application_people', 
-        'PersonID'
-    ) 
-}}

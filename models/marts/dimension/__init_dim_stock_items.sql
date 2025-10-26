@@ -1,9 +1,0 @@
-{{ 
-    get_table_init
-    (
-        '__changed_dim_stock_items', 
-        '__init_dim_stock_items', 
-        'stg_warehouse_stock_items', 
-        'StockItemID'
-    ) 
-}}
