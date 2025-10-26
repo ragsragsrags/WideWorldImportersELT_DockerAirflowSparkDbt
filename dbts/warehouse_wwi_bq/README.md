@@ -3,7 +3,7 @@
 This is an (E)xtract - (L)oad - (T)ransform of Microsoft's sample database WideWorldImporters.  This will be using Microsoft's sample WidelWorldImporters database as baseline. There are 2 workflows:
    + process_wwi_elt - This will extract and load data to another mssql database using Airflow and Spark.  Transformation is done mostly in the stored procedures called by Spark.
    + <img width="1138" height="192" alt="image" src="https://github.com/user-attachments/assets/34399c95-7c47-4113-934c-6751100fe39c" />
-   + process_wwi_bg_elt - This will extract and load data to a BigQuery cloud using Airfflow and Sparnk.  Transformation is done by dbt.
+   + process_wwi_bq_elt - This will extract and load data to a BigQuery cloud using Airfflow and Spark.  Transformation is done by dbt.
    + <img width="1139" height="267" alt="image" src="https://github.com/user-attachments/assets/647cf0f2-8c79-48b2-bb0c-260b7bf7a825" />
 
 Prerequisites:
@@ -35,34 +35,7 @@ These are the relevant documents:
    + Papermill
       - https://airflow.apache.org/docs/apache-airflow-providers-papermill/stable/operators.html
 
-This is the project tree:
-   - main 
-      - config
-         + airflow.cfg
-      - dags
-         + process_wwi_elt.json
-         + process_wwi_elt.py
-      - logs
-      - notebooks
-         + load_wwi_test.ipynb
-         + load_wwi.ipynb
-         + load_wwi.json
-         + warehouse_wwi_test.ipynb
-         + warehouse_wwi.ipynb
-         + warehouse_wwi.json
-      - plugins
-      - resources
-         - jars
-            + mssql-jdbc-13.2.0.jre11.jar
-      + .env
-      + docker-compose.yaml
-      + Dockerfile
-      + requirements.txt
-
-This is the overall workflow of the ELT:
-<img width="1138" height="192" alt="image" src="https://github.com/user-attachments/assets/34399c95-7c47-4113-934c-6751100fe39c" />
-
-These are the dags:
+For process_wwi_elt workflow, These are the dags:
    + load_wwi_w1 - loads batch 1 tables
    + load_wwi_w2 - loads batch 2 tables
    + load_wwi_test - validate loaded data
@@ -71,6 +44,13 @@ These are the dags:
    + wh_fact_wwi - warehouse fact tables
    + wh_fact_wwi_test - validate warehoused fact data
 
+For process_wwi_bq_elt workflow, These are the dags:
+   + load_wwi_bq_w1 - loads batch 1 tables
+   + load_wwi_bq_w2 - loads batch 2 tables
+   + load_wwi_bq_test - validate loaded data
+   + set_cutoff_date_bq - sets the warehouse cutoff date
+   + warehouse_wwi_bq - warehouse data with dbt
+     
 Some instructions:
 1. Open Visual Studio to the folder you saved the files
 2. Open a notebook in notebooks folder
@@ -108,4 +88,5 @@ You should see these pages:
 <img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/a6a1e94c-cc35-410a-a747-53956befdf5a" />
 
 I've used retries because I've only around 8gb avaialable memory and sometimes it stops.  If you have more memory then 1 retry should be okay.
+
 
