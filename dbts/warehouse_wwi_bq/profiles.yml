@@ -1,0 +1,12 @@
+default:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: service-account
+      project: dbt-tutorial-462014
+      dataset: WideWorldImportersDW
+      threads: 4 # Must be a value of 1 or greater
+      keyfile: ../../resources/credentials/bigquery_token.json
+      OPTIONAL_CONFIG: VALUE
+      
