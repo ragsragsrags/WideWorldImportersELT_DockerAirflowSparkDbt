@@ -94,7 +94,11 @@ Some instructions:
     + See steps 7 to 9: airflow and dbt: https://docs.getdbt.com/guides/airflow-and-dbt-cloud
     + Update this configurations in using docker compose from steps above:
       <img width="461" height="325" alt="image" src="https://github.com/user-attachments/assets/db09d9b7-3d83-4838-ac32-43c6e42d2246" />
-      You can see it from the url of the job you created
+    + You can see it from the url of the job you created
+      <img width="749" height="360" alt="image" src="https://github.com/user-attachments/assets/bcaaf8c1-b2f3-4c1b-9dc0-42881c91cf4d" />
+    + In the Terminal, go to the folder of your dbt project, in my case i've saved in side the project as well:
+      <img width="708" height="171" alt="image" src="https://github.com/user-attachments/assets/e163ff1c-0ea7-4405-b394-d1c56ee46e23" /> 
+    + you can dbt run or dbt build from the command prompt 
       
 These are the url:
 - Airflow Url (this could take time load on first load): http://localhost:8080/ 
@@ -108,6 +112,7 @@ You should see these pages:
 <img width="958" height="602" alt="image" src="https://github.com/user-attachments/assets/a6a1e94c-cc35-410a-a747-53956befdf5a" />
 
 I've used retries because I've only around 8gb avaialable memory and sometimes it stops.  If you have more memory then 1 retry should be okay.
+
 
 
 
